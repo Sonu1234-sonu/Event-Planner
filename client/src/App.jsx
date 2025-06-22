@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Login from "./pages/Login";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Hero/>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact/>}/>
 
             
           </Routes>
