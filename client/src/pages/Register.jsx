@@ -1,0 +1,115 @@
+import React, { useState } from "react";
+import loginimg from "../assets/login.jpg";
+import { Link } from "react-router-dom";
+
+const Register = () => {
+  
+  const [registerData, setRegisterData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
+
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+
+    setRegisterData((previousData) => ({ ...previousData, [name]: value }));
+  };
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(registerData);
+
+    setRegisterData({
+      fullName: "",
+      email: "",
+      password: "",
+      phone: "",
+    });
+  };
+
+  return (
+    <>
+      <div className="min-h-screen bg-cover bg-center flex items-center justify-center  ">
+        <img src={loginimg} alt="" className="absolute  w-full " />
+        <div className="backdrop-blur-md bg-white/10 border gap-5 border-white-400 p-9 rounded-2xl shadow-lg w-80 text-white">
+          <h2 className="text-center text-2xl font-semibold mb-6 text-fuchsia-300 py-4 rounded-lg">
+            {" "}
+            Event Palnner Register Now
+          </h2>
+          <form   onSubmit={handelSubmit}>
+            <div  className="space-y-5 ">
+              <div className="relative">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Username"
+                  value={registerData.name}
+                  onChange={handelChange}
+                  className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                />
+                <span className="absolute left-3 top-2.5 text-white">
+                  <i className="fas fa-user"></i>
+                </span>
+              </div>
+              <div className="relative">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your Email"
+                  className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  value={registerData.email}
+                  onChange={handelChange}
+                />
+                <span className="absolute left-3 top-2.5 text-white">
+                  <i className="fas fa-user"></i>
+                </span>
+              </div>
+              <div className="relative">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={registerData.password}
+                  onChange={handelChange}
+                  className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                />
+                <span className="absolute left-3 top-2.5 text-white">
+                  <i className="fas fa-lock"></i>
+                </span>
+              </div>
+              <div className="relative">
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number "
+                  value={registerData.phone}
+                  onChange={handelChange}
+                  className="w-full py-2 pl-10 pr-4 text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                />
+                <span className="absolute left-3 top-2.5 text-white">
+                  <i className="fas fa-lock"></i>
+                </span>
+              </div>
+            </div>
+
+            <button className="mt-6 w-full bg-pink-400 text-black font-semibold py-2 rounded-md hover:bg-gray-200 transition">
+              Register
+            </button>
+            <p className="text-center text-sm mt-4">
+              Already have account :
+              <a href="#" className="underline">
+                {" "}
+                <Link to={"/login"}>Login</Link>
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Register;
