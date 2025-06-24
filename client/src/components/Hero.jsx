@@ -3,10 +3,10 @@ import bgphoto from "../assets/hero.jpg";
 
 const Hero = () => {
   return (
-    <div className="-mt-30 relative  flex justify-center items-center">
-      <img src={bgphoto} alt="" className="absolute -z-1 " />
+    <div className="-mt-20 relative  flex justify-center items-center">
+      <img src={bgphoto} alt="" className="absolute -z-99 " />
 
-      <div className="grid justify-items-center mt-72" >
+      <div className="grid justify-items-center mt-50" >
         <h1 className="text-fuchsia-500  text-shadow-cyan-300 text-shadow-lg text-6xl text-center font-bold font-[family-name:var(--customFont) ">
           Turning Dreams into Reality
         </h1>

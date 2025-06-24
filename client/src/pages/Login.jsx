@@ -23,51 +23,53 @@ const Login = () => {
             {" "}
             Event Palnner Login
           </h2>
-          <div className="space-y-5">
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-2 pl-10 pr-4 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
-              />
-              <span className="absolute left-3 top-2.5 text-white">
-                <i className="fas fa-user"></i>
-              </span>
-            </div>
-            <div className="relative">
-              <input
-                type="password"
-                placeholder="Password"
-                 value={password}
+          <form action="" onSubmit={formSubmitKro}>
+            <div className="space-y-5">
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full py-2 pl-10 pr-4 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                />
+                <span className="absolute left-3 top-2.5 text-white">
+                  <i className="fas fa-user"></i>
+                </span>
+              </div>
+              <div className="relative">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                className="w-full py-2 pl-10 pr-4 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
-              />
-              <span className="absolute left-3 top-2.5 text-white">
-                <i className="fas fa-lock"></i>
-              </span>
+                  className="w-full py-2 pl-10 pr-4 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                />
+                <span className="absolute left-3 top-2.5 text-white">
+                  <i className="fas fa-lock"></i>
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between items-center text-sm mt-4">
-            <label className="flex items-center gap-1">
-              <input type="checkbox" className="form-checkbox text-white" />
-              Remember me
-            </label>
-            <a href="#" className="hover:underline">
-              Forgot password?
-            </a>
-          </div>
-          <button className="mt-6 w-full bg-pink-400 text-black font-semibold py-2 rounded-md hover:bg-gray-200 transition">
-            Login
-          </button>
-          <p className="text-center text-sm mt-4">
-            Don’t have an account?{" "}
-            <a href="#" className="underline">
-              {" "}
-              <Link to={"/register"}>Register</Link>
-            </a>
-          </p>
+            <div className="flex justify-between items-center text-sm mt-4">
+              <label className="flex items-center gap-1">
+                <input type="checkbox" className="form-checkbox text-white" />
+                Remember me
+              </label>
+              <a href="#" className="hover:underline">
+                Forgot password?
+              </a>
+            </div>
+            <button className="mt-6 w-full bg-pink-400 text-black font-semibold py-2 rounded-md hover:bg-gray-200 transition">
+              Login
+            </button>
+            <p className="text-center text-sm mt-4">
+              Don’t have an account?{" "}
+              <a href="#" className="underline">
+                {" "}
+                <Link to={"/register"}>Register</Link>
+              </a>
+            </p>
+          </form>
         </div>
       </div>
     </>
