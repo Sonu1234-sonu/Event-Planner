@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import cont from "../assets/cont.jpg";
 const Contact = () => {
@@ -47,7 +48,7 @@ const Contact = () => {
             <form className="space-y-2" onSubmit={handelSubmit}>
               <div className="flex gap-3.5 ">
                 <div>
-                  <label className="block mb-1 font-medium">Name</label>
+                  <label className="block mb-1 font-medium"> First Name</label>
                   <input
                     type="text"
                     name="name"
@@ -55,7 +56,7 @@ const Contact = () => {
                     onChange={handelChange}
                     required
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
-                    placeholder="Enter your name"
+                    placeholder="Enter your First name"
                   />
                 </div>
                 <div>
@@ -73,15 +74,20 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="block mb-1 font-medium">Email</label>
+                <div className="flex">
+                  
+                  <label className="block mb-1 font-medium"> Email</label>
+                 
+                </div>
                 <input
                   type="email"
                   name="email"
                   value={contactData.email}
                   onChange={handelChange}
                   required
+
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
-                  placeholder="Enter your email"
+                  placeholder=" Enter your email"
                 />
               </div>
               <div>
@@ -95,7 +101,7 @@ const Contact = () => {
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder="Enter your Number"
                 />
-              </div>
+              </div> 
 
               <div>
                 <label className="block mb-1 font-medium">Message</label>
