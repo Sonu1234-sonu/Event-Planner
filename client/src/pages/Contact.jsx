@@ -1,15 +1,15 @@
-
 import React, { useState } from "react";
-import { MdEmail } from "react-icons/md";
+
 import { Link } from "react-router-dom";
 import cont from "../assets/cont.jpg";
+import { FaPhone } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+import { FaUserAlt } from "react-icons/fa";
 const Contact = () => {
   const [contactData, setContactData] = useState({
-   
-   
     name: "",
     lastname: "",
-     email: "",
+    email: "",
     phone: "",
     message: "",
   });
@@ -48,7 +48,18 @@ const Contact = () => {
             <form className="space-y-2" onSubmit={handelSubmit}>
               <div className="flex gap-3.5 ">
                 <div>
-                  <label className="block mb-1 font-medium"> First Name</label>
+                  <div className="flex gap-0.5 justify-items-center items-center">
+                    <div>
+                      <FaUserAlt />
+                    </div>
+                    <div>
+                      <label className="block mb-1 font-medium">
+                        {" "}
+                        First Name
+                      </label>
+                    </div>
+                  </div>
+
                   <input
                     type="text"
                     name="name"
@@ -74,10 +85,14 @@ const Contact = () => {
               </div>
 
               <div>
-                <div className="flex">
-                  
-                  <label className="block mb-1 font-medium"> Email</label>
-                 
+                <div className="flex gap-0.5 justify-items-center items-center">
+                  <div>
+                    {" "}
+                    <MdEmail />
+                  </div>
+                  <div>
+                    <label className="block mb-1 font-medium"> Email</label>
+                  </div>
                 </div>
                 <input
                   type="email"
@@ -85,13 +100,17 @@ const Contact = () => {
                   value={contactData.email}
                   onChange={handelChange}
                   required
-
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder=" Enter your email"
                 />
               </div>
               <div>
-                <label className="block mb-1 font-medium">Number</label>
+                <div className="flex gap-0.5 justify-items-center items-center">
+                  <div><FaPhone /></div>
+                  <div><label className="block mb-1 font-medium">Number</label></div>
+                </div>
+                
+                
                 <input
                   type="tel"
                   name="phone"
@@ -101,10 +120,15 @@ const Contact = () => {
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder="Enter your Number"
                 />
-              </div> 
+              </div>
 
               <div>
-                <label className="block mb-1 font-medium">Message</label>
+                <div className="flex gap-0.5 justify-items-center items-center">
+                  <div> <MdEmail  className="h-5 w-5"/></div>
+                  <div> <label className="block mb-1 font-medium">Message</label></div>
+                </div>
+               
+               
                 <textarea
                   name="message"
                   value={contactData.message}
@@ -124,7 +148,6 @@ const Contact = () => {
               </button>
             </form>
           </div>
-        
         </div>
       </div>
     </>
