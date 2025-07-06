@@ -1,8 +1,9 @@
 import User from "../models/userModel.js"
 import bcrypt from "bcrypt"
+import genToken from "../utils/auth.js";
 export const RegisterUser = async (req, res, next) => {
     try {
-
+ 
         const { fullName, email, phone, password } = req.body;
 
         if (!fullName || !email || !phone || !password) {
@@ -24,7 +25,7 @@ export const RegisterUser = async (req, res, next) => {
             fullName, email, phone, password: hashedPassword,
         });
 
-        res.status(201).json({ messsage: "Registration Successfull" })
+        res.status(201).json({ message: "Registration Successfull" })
     } catch (error) {
         next(error);
     }
@@ -55,8 +56,9 @@ export const LoginUser = async (req, res, next) => {
             error.statusCode = 401;
             return next(error);
         }
+        genToken(user._id,res);
 
-        res.status(200).json({messsage:`Welcome Back ${user.fullName}`,data:user});
+        res.status(200).json({message:`Welcome Back ${user.fullName}`,data:user});
 
 
     } catch (error) {
@@ -65,8 +67,8 @@ export const LoginUser = async (req, res, next) => {
 };
 
 export const LogoutUser = (req, res) => {
-    res.json({ messsage: "User Logout Done" });
+    res.json({ message: "User Logout Done" });
 };
 export const UpdateUser = (req, res) => {
-    res.json({ messsage: "User Update Done" });
+    res.json({ message: "User Update Done" });
 };

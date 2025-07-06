@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import loginimg from "../assets/login.jpg";
 import { Link } from "react-router-dom";
+import api from "../config/api";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
-  
   const [registerData, setRegisterData] = useState({
     fullName: "",
     email: "",
@@ -17,17 +18,28 @@ const Register = () => {
     setRegisterData((previousData) => ({ ...previousData, [name]: value }));
   };
 
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
 
     console.log(registerData);
+    try {
+      const res = await api.post("/auth/register", registerData);
+      toast.success(res.data.message);
+      setRegisterData({
+        fullName: "",
+        email: "",
+        password: "",
+        phone: "",
+      });
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
 
-    setRegisterData({
-      fullName: "",
-      email: "",
-      password: "",
-      phone: "",
-    });
+      );
+      console.log(error);
+    }
   };
 
   return (
@@ -39,14 +51,14 @@ const Register = () => {
             {" "}
             Event Palnner Register Now
           </h2>
-          <form   onSubmit={handelSubmit}>
-            <div  className="space-y-5 ">
+          <form onSubmit={handelSubmit}>
+            <div className="space-y-5 ">
               <div className="relative">
                 <input
                   type="text"
-                  name="name"
+                  name="fullName"
                   placeholder="Username"
-                  value={registerData.name}
+                  value={registerData.fullName}
                   onChange={handelChange}
                   className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
                 />

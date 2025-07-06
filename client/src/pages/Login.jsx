@@ -1,17 +1,34 @@
 import React, { useState } from "react";
 import loginimg from "../assets/login.jpg";
 import { Link } from "react-router-dom";
+import api from "../config/api";
+import {toast} from "react-hot-toast"
+import { Navigate } from "react-router-dom";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const formSubmitKro = (e) => {
+  const formSubmitKro = async(e) => {
     e.preventDefault();
     const logindata = {
-      Email: email,
-      Password: password,
+      email: email,
+      password: password,
     };
+     try{
+      const res = await api.post("/auth/login",logindata);
+      toast.success(res.data.message);
+      setEmail("");
+      setPassword("");
+      Navigate('/userDashboard')
+      
+    }catch(error)
+    {
+      toast.error(`Error:${error.response?.status || error.message}/${error.response?.data.message ||""}`);
+      console.log(error);
+    }
     console.log(logindata);
+    
   };
 
   return (
@@ -29,6 +46,7 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Email"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full py-2 pl-10 pr-4 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
@@ -41,6 +59,7 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="Password"
+                  name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full py-2 pl-10 pr-4 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"

@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Register from "./pages/Register";
+import {Toaster} from "react-hot-toast";
+import UserDashboard from "./pages/userDashboard";
 
 
 const App = () => {
@@ -14,6 +16,7 @@ const App = () => {
    
       <BrowserRouter>
         <header>
+          <Toaster/>
           <Navbar />
           
         </header>
@@ -24,6 +27,7 @@ const App = () => {
             <Route path="/contact" element={<Contact/>}/>
            <Route path="/register" element={<Register/>}/>
            <Route path="/login"element={<Login/>}/>
+            <Route path="/userDashboard"element={<UserDashboard/>}/>
 
             
           </Routes>

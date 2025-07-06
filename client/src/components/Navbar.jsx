@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/Logo.png"
 import { Link } from "react-router-dom";
+import {Toaster} from "react-hot-toast";
 
 const Navbar = () => {
   return (
