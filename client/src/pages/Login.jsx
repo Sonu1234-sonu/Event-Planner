@@ -3,9 +3,11 @@ import loginimg from "../assets/login.jpg";
 import { Link } from "react-router-dom";
 import api from "../config/api";
 import {toast} from "react-hot-toast"
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+  const navigate=useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +22,7 @@ const Login = () => {
       toast.success(res.data.message);
       setEmail("");
       setPassword("");
-      Navigate('/userDashboard')
+      navigate("/userDashboard")
       
     }catch(error)
     {
