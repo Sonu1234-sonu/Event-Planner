@@ -37,15 +37,15 @@ const Contact = () => {
 
   return (
     <>
-      <div className=" relative  bg-cover bg-center flex items-center justify-center ">
+      <div className=" relative  mt-[-8%] bg-cover bg-center flex items-center justify-center ">
         <img src={cont} alt="" className="absolute -z-1 w-full " />
-        <div className=" backdrop-blur-md border-2 border-[#ebb820] rounded-2xl shadow-2xl p-8 w-full max-w-md mt-10">
+        <div className=" backdrop-blur-md border-2 border-[#ebb820] rounded-2xl shadow-2xl p-8 w-full max-w-md mt-35">
           <div className="">
             <h1 className="text-4xl font-bold text-center text-red-700 mb-6 font-serif">
               Contact Us
             </h1>
 
-            <form className="space-y-2" onSubmit={handelSubmit}>
+            <form className="space-y-2 " onSubmit={handelSubmit}>
               <div className="flex gap-3.5 ">
                 <div>
                   <div className="flex gap-0.5 justify-items-center items-center">
