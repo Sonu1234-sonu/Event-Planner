@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
 import banner from "../assets/banner.jpeg";
 // import member from "../assets/member-1.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoReorderFourOutline } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoWalletOutline } from "react-icons/io5";
 import { IoIosNotifications } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import { MdModeEditOutline } from "react-icons/md";
-
 import { toast } from "react-hot-toast";
 import api from "../config/api";
 
-const UserDashboard = () => {
-  const navigate = useNavigate();
+const UserDashboardEdit = () => {
   const [userdata, setUserData] = useState({
     fullName: "John Doe",
     email: "john.doe@example.com",
     phone: "123-456-7890",
   });
+
+ const [preview,setPreview]=useState("");
 
   const fetchUserData = async () => {
     try {
@@ -33,6 +32,18 @@ const UserDashboard = () => {
         }`
       );
     }
+  };
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    const fileURL = URL.createObjectURL(file);
+
+    setPreview(fileURL);
   };
 
   useEffect(() => {
@@ -62,17 +73,24 @@ const UserDashboard = () => {
                 <div>
                   <div className="w-30 h-30  mt-6 rounded-full border-none border-white">
                     <img
-                      src={userdata.photo}
+                      src={preview || userdata.photo}
                       alt=""
                       className="w-30 h-30 rounded-full object-cover"
                     />
-                   
+                    <div className="border rounded-full p-2 w-fit absolute bottom-2 right-2 bg-rose-300 hover:bg-blue-500 hover:text-white">
+                      <label className="text-2xl" htmlFor="imageUpload">
+                        
+                      </label>
+                      <input
+                        type="file"
+                        className="hidden"
+                        id="imageUpload"
+                        onChange={handleImageChange}
+                      />
+                    </div>
                   </div>
-                  <button
-                    className=" absolute top-1 left-1 border p-2 rounded-2xl "
-                     onClick={() => navigate("/userDashboardEdit")}
-                  >
-                    <MdModeEditOutline/>Edit
+                  <button className=" absolute top-1 right-1 border p-2 rounded ">
+                    Save
                   </button>
                 </div>
                 {/* <img
@@ -81,16 +99,35 @@ const UserDashboard = () => {
                   className="w-30 h-30  mt-6 rounded-full border-none border-white"
                 /> */}
                 <h1 className="text-2xl font-semibold mt-2">
-                  {userdata.fullName}
+                  <b>Name :</b>{" "}
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={userdata.fullName}
+                    onChange={handelChange}
+                    className="p-2 border rounded-lg border-rose-300"
+                  />
                 </h1>
                 <p className="text-sm text-gray-500">
                   <b>Email :</b>
                   {userdata.email}
                 </p>
                 <h3 className="text-sm text-gray-500">
-                  <b>Phone : </b> {userdata.phone}
+                  <b>Phone :</b>{" "}
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={userdata.phone}
+                    onChange={handelChange}
+                    className="p-2 border rounded-lg border-rose-300"
+                  />
                 </h3>
               </div>
+              <button className="absolute top-1 right-1 border p-2 rounded-lg flex gap-2 justify-center items-center bg-rose-300 hover:bg-rose-400 text-lg">
+                {" "}
+                
+                Save Data
+              </button>
               <br />
               <br />
               <hr />
@@ -159,4 +196,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default UserDashboardEdit;

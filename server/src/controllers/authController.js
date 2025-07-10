@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 import genToken from "../utils/auth.js";
 export const RegisterUser = async (req, res, next) => {
     try {
- 
+
         const { fullName, email, phone, password } = req.body;
 
         if (!fullName || !email || !phone || !password) {
@@ -20,9 +20,11 @@ export const RegisterUser = async (req, res, next) => {
             return next(error);
 
         }
+        const profilePic=`https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`
+        
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({
-            fullName, email, phone, password: hashedPassword,
+            fullName, email, phone, password: hashedPassword,photo:profilePic,
         });
 
         res.status(201).json({ message: "Registration Successfull" })

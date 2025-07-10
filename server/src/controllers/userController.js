@@ -17,3 +17,15 @@ export const GetProfile = async (req, res, next) => {
     next(error);
   }
 };
+export const UpdateProfile=async(req,res,next)=>{
+  try
+  {
+const currentUser=req.user;
+if(req.file)
+{
+  photo=req.file
+}
+  }catch{
+
+  }
+}

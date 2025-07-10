@@ -19,6 +19,11 @@ const userSchema=mongoose.Schema(
             type:String,
             required:true,
         },
+        photo:{
+            type:String,
+            required:true,
+            default:"",
+        }
     },{timestamps:true}
 );
 const User=mongoose.model("User",userSchema);

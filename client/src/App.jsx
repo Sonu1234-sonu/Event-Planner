@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
 import UserDashboard from "./pages/userDashboard";
+import UserDashboardEdit from "./pages/userDashboardEdit";
+
 
 
 const App = () => {
@@ -22,11 +24,12 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/" element={<Hero />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/userDashboard" element={<UserDashboard />} />
+            <Route path="/userDashboardEdit" element={<UserDashboardEdit />} />
            
           </Routes>
         </main>
