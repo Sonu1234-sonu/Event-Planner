@@ -10,8 +10,7 @@ import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
 import UserDashboard from "./pages/userDashboard";
 import UserDashboardEdit from "./pages/userDashboardEdit";
-
-
+import CustomerDashboard from "./pages/CustomerDashboard";
 
 const App = () => {
   return (
@@ -30,7 +29,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/userDashboard" element={<UserDashboard />} />
             <Route path="/userDashboardEdit" element={<UserDashboardEdit />} />
-           
+            <Route path="/dashboard" element={<CustomerDashboard />} />
           </Routes>
         </main>
       </BrowserRouter>

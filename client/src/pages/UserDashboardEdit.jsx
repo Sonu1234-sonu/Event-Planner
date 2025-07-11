@@ -16,11 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserDashboardEdit = () => {
   const navigate = useNavigate();
-  const [userdata, setUserData] = useState({
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-  });
+  const [userdata, setUserData] = useState("");
 
   const [preview, setPreview] = useState("");
   const [picture, setPicture] = useState("");
@@ -102,7 +98,7 @@ const UserDashboardEdit = () => {
         <div className="flex flex-col md:flex-row max-w-7xl mx-auto p-4 md:gap-8 -mt-40">
           {/* Sidebar */}
           <div className="w-full md:w-1/4 ">
-            <div className="bg-white shadow rounded-2xl w-96 p-6 absolute">
+            <div className="bg-fuchsia-100 shadow rounded-2xl w-96 p-6 absolute">
               <div className="flex flex-col items-center">
                 <div>
                   <div className="w-30 h-30  mt-6 rounded-full border-none border-white">
@@ -148,7 +144,7 @@ const UserDashboardEdit = () => {
                   <b>Phone :</b>{" "}
                   <input
                     type="text"
-                    name="fullName"
+                    name="phone"
                     value={userdata.phone}
                     onChange={handelChange}
                     className="p-2 border rounded-lg border-rose-300"

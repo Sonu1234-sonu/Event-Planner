@@ -16,11 +16,7 @@ import api from "../config/api";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
-  const [userdata, setUserData] = useState({
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-  });
+  const [userdata, setUserData] = useState("");
 
   const fetchUserData = async () => {
     try {
@@ -70,7 +66,7 @@ const UserDashboard = () => {
                    
                   </div>
                   <button
-                    className="absolute top-2 right-2 border p-2 rounded-lg flex gap-2 justify-center items-center bg-rose-300 hover:bg-blue-400 hover:text-white text-lg"
+                    className="absolute top-2 right-2 border p-2 rounded-lg flex gap-2 justify-center items-center bg-slate-500 hover:bg-blue-400 hover:text-white text-lg"
                      onClick={() => navigate("/userDashboardEdit")}
                   >
                     <MdModeEditOutline/>Edit
