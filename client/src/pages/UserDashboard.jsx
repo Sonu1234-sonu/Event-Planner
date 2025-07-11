@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import banner from "../assets/banner.jpeg";
+import banner from "../assets/cover1.jpg";
 // import member from "../assets/member-1.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { IoReorderFourOutline } from "react-icons/io5";
@@ -9,6 +9,7 @@ import { IoWalletOutline } from "react-icons/io5";
 import { IoIosNotifications } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { MdModeEditOutline } from "react-icons/md";
+
 
 import { toast } from "react-hot-toast";
 import api from "../config/api";
@@ -47,17 +48,17 @@ const UserDashboard = () => {
           <img
             src={banner}
             alt=""
-            className="w-full h-full object-cover absolute "
+            className="w-full h-150 object-cover absolute "
           />
           <button className="absolute bottom-4 right-4 bg-white text-gray-700 px-3 py-1 rounded-md shadow text-sm">
             Edit Cover
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row max-w-7xl mx-auto p-4 md:gap-8 -mt-40">
+        <div className="flex flex-col md:flex-row max-w-7xl mx-auto  p-4 md:gap-8 -mt-40">
           {/* Sidebar */}
           <div className="w-full md:w-1/4 ">
-            <div className="bg-white shadow rounded-2xl w-96 p-6 absolute">
+            <div className="bg-blue-100 shadow rounded-2xl w-96 p-6 absolute">
               <div className="flex flex-col items-center">
                 <div>
                   <div className="w-30 h-30  mt-6 rounded-full border-none border-white">
@@ -69,7 +70,7 @@ const UserDashboard = () => {
                    
                   </div>
                   <button
-                    className=" absolute top-1 left-1 border p-2 rounded-2xl "
+                    className="absolute top-2 right-2 border p-2 rounded-lg flex gap-2 justify-center items-center bg-rose-300 hover:bg-blue-400 hover:text-white text-lg"
                      onClick={() => navigate("/userDashboardEdit")}
                   >
                     <MdModeEditOutline/>Edit

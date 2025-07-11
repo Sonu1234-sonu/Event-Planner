@@ -8,17 +8,23 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoWalletOutline } from "react-icons/io5";
 import { IoIosNotifications } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { FaSave } from "react-icons/fa";
+import { FaCamera } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import api from "../config/api";
+import { useNavigate } from "react-router-dom";
 
 const UserDashboardEdit = () => {
+  const navigate = useNavigate();
   const [userdata, setUserData] = useState({
     fullName: "John Doe",
     email: "john.doe@example.com",
     phone: "123-456-7890",
   });
 
- const [preview,setPreview]=useState("");
+  const [preview, setPreview] = useState("");
+  const [picture, setPicture] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchUserData = async () => {
     try {
@@ -33,17 +39,45 @@ const UserDashboardEdit = () => {
       );
     }
   };
+
   const handelChange = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    setPreview(URL.createObjectURL(e.target.files[0]));
+    setPicture(e.target.files[0]);
+  };
 
-    const fileURL = URL.createObjectURL(file);
+  const handleEditProfile = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-    setPreview(fileURL);
+    const formData = new FormData();
+
+    formData.append("fullName", userdata.fullName);
+    formData.append("email", userdata.email);
+    formData.append("picture", picture);
+
+    try {
+      const res = await api.put("/user/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      toast.success(res.data.message);
+      setUserData(res.data.data);
+      navigate("/userDashboard");
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -77,10 +111,8 @@ const UserDashboardEdit = () => {
                       alt=""
                       className="w-30 h-30 rounded-full object-cover"
                     />
-                    <div className="border rounded-full p-2 w-fit absolute bottom-2 right-2 bg-rose-300 hover:bg-blue-500 hover:text-white">
-                      <label className="text-2xl" htmlFor="imageUpload">
-                        
-                      </label>
+                    <div className="border rounded-full p-2 w-fit absolute top-32 right-32 bg-rose-300 hover:bg-blue-500 hover:text-white">
+                      <label className="text-2xl" htmlFor="imageUpload"><FaCamera /></label>
                       <input
                         type="file"
                         className="hidden"
@@ -99,7 +131,7 @@ const UserDashboardEdit = () => {
                   className="w-30 h-30  mt-6 rounded-full border-none border-white"
                 /> */}
                 <h1 className="text-2xl font-semibold mt-2">
-                  <b>Name :</b>{" "}
+                  
                   <input
                     type="text"
                     name="fullName"
@@ -123,10 +155,12 @@ const UserDashboardEdit = () => {
                   />
                 </h3>
               </div>
-              <button className="absolute top-1 right-1 border p-2 rounded-lg flex gap-2 justify-center items-center bg-rose-300 hover:bg-rose-400 text-lg">
-                {" "}
-                
-                Save Data
+              <button
+                className="absolute top-1 right-1 border p-2 rounded-lg flex gap-2 justify-center items-center bg-rose-300 hover:bg-rose-400 hover:text-white text-lg"
+                onClick={handleEditProfile}
+
+              >
+                <FaSave />{loading ? "Saving Data . . . " : "Save Data"}
               </button>
               <br />
               <br />

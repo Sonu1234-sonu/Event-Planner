@@ -33,12 +33,12 @@ app.listen(port,async () => {
     console.log("Server Started at", port);
    
 
-    try{
-        await  ConnecteDB();
-        await cloudinary.api.resources({max_result:1});
-        console.log("Cloudinary Connected")
-    }catch(error){
-        console.log(error);
-        process.exit(1);
-    }
+    try {
+    await ConnecteDB();
+    await cloudinary.api.resources({ max_results: 1 });
+    console.log("Cloudinary Connected");
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
 });

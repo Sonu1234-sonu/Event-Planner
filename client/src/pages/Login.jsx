@@ -11,26 +11,27 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const formSubmitKro = async(e) => {
+   const formSubmitKro = async (e) => {
     e.preventDefault();
     const logindata = {
       email: email,
       password: password,
     };
-     try{
-      const res = await api.post("/auth/login",logindata);
+       try {
+      const res = await api.post("/auth/login", logindata);
       toast.success(res.data.message);
-      setEmail("");
       setPassword("");
-      navigate("/userDashboard")
-      
-    }catch(error)
-    {
-      toast.error(`Error:${error.response?.status || error.message}/${error.response?.data.message ||""}`);
+      setEmail("");
+      navigate("/userDashboard");
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
       console.log(error);
     }
     console.log(logindata);
-    
   };
 
   return (
