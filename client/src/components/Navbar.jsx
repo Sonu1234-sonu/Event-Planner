@@ -7,7 +7,7 @@ import { IoIosLogIn } from "react-icons/io";
 const Navbar = () => {
   return (
     <>
-      <div className="flex justify-center h-20 align-iteam-centre gap-18 items-center font-bold sticky  top-0 z-99 bg-rose-300 text-white">
+      <div className="flex justify-center h-20 align-iteam-centre gap-18 items-center font-bold sticky  top-0 z-99  text-black">
         <Link to={"/"} className="flex gap-4"><IoHome className="h-7"/>Home</Link>
         <Link to={"/about"}  >About</Link>
         <Link to={"/services"}>Services</Link>
