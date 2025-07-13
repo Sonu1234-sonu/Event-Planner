@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import api from "../../config/api";
-import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { MdModeEditOutline } from "react-icons/md";
 import ProfileEditModal from "./profileEditModal";
+import AccountDeactivateModal from "./AccountDeactiveModel";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [userdata, setUserData] = useState("");
-  const [isEditModelOpen,setIsEditModelOpen]=useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeactivateModalOpen, setIsDeactivateModalOpen] = useState(false);
+
 
   const fetchUserData = async () => {
     try {
@@ -27,7 +29,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  },[isEditModalOpen]);
 
   return (
     <>
@@ -35,22 +37,22 @@ const Profile = () => {
         <h1 className="text-2xl font-bold">Profile</h1>
         <button
           className="border p-2 rounded-lg flex gap2 justify-center items-center bg-slate-500 hover:bg-blue-400 hover:text-white text-lg "
-          onClick={() =>setIsEditModelOpen(true)}
+          onClick={() =>setIsEditModalOpen(true)}
         >
           <MdModeEditOutline className="text-xl" />
           Edit
         </button>
       </div>
       <div className="p-4 flex gap-6 ">
-        <div className=" gap-5 border w-fit rounded-lg bg-amber-100  flex-col justify-center items-center">
-          <div className="border w-40 h-40 rounded-full overflow-hidden m-auto ">
+        <div className=" flex-col gap-6 border border-gray-50 w-2/7 rounded-xl bg-cyan-100 p-2  ">
+          <div className="border-2  w-40 h-40 mt-6 rounded-full overflow-hidden m-auto ">
             <img
               src={userdata.photo}
               alt="profilePic"
-              className="w-40 h-40 object-fit-cover rounded-full"
+              className="w-full h-full object-fit-cover rounded-full"
             />
           </div>
-          <div>
+          <div className="mt-6">
             <b> Name:</b> <span>{userdata.fullName}</span>
           </div>
           <div>
@@ -61,70 +63,63 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className=" border  p-5 w-2/3 grid gap-5 rounded-lg bg-blue-100">
-          <div>
-            <b> Gender:</b> <span>{userdata.fgender}</span>
+       <div className="border border-gray-200 p-6 w-5/7 grid gap-4 rounded-xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <h2 className="text-xl font-semibold text-pink-700 mb-4 border-b border-pink-200 pb-2">
+            Additional Information
+          </h2>
+          <div className="text-gray-700">
+            <b className="text-purple-700">Gender:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.gender}</span>
           </div>
-          <div>
-            <b>Occupation:</b> <span>{userdata.occupation}</span>
+          <div className="text-gray-700">
+            <b className="text-purple-700">Occupation:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.occupation}</span>
           </div>
-          <div>
-            <b>Address:</b> <span>{userdata.address}</span>
+          <div className="text-gray-700">
+            <b className="text-purple-700">Address:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.address}</span>
           </div>
-          <div>
-            <b>City:</b> <span>{userdata.city}</span>
+          <div className="text-gray-700">
+            <b className="text-purple-700">City:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.city}</span>
           </div>
-          <div>
-            <b>District:</b> <span>{userdata.district}</span>
+          <div className="text-gray-700">
+            <b className="text-purple-700">District:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.district}</span>
           </div>
-          <div>
-            <b>State:</b> <span>{userdata.state}</span>
+          <div className="text-gray-700">
+            <b className="text-purple-700">State:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.state}</span>
           </div>
-          <div>
-            <b>Representing:</b> <span>{userdata.representing}</span>
+          <div className="text-gray-700">
+            <b className="text-purple-700">Representing:</b>{" "}
+            <span className="text-gray-800 ml-2">{userdata.representing}</span>
           </div>
         </div>
       </div>
+      <button
+        className="border border-red-500 hover:scale-105 mx-5 float-end text-red-500 p-2 rounded-lg font-bold flex gap-2 justify-center items-center hover:bg-red-500 hover:text-white cursor-pointer text-lg"
+        onClick={() => {
+          setIsDeactivateModalOpen(true);
+        }}
+      >
+        Deactivate My acoount
+      </button>
 
-      {/* <div className="bg-white relative mx-auto my-5 w-[50%] border p-6 rounded-lg shadow-md flex justify-center gap-20 items-center">
-        <div className="">
-          <div className="w-50 h-50 rounded-full">
-            <img
-              src={userdata.photo}
-              alt=""
-              className="w-50 h-50 rounded-full object-cover"
-            />
-          </div>
-          
-        </div>
-        <div className="grid justify-around gap-5">
-          <h3>
-            <b>Name :</b> {userdata.fullName}
-          </h3>
-          <h3>
-            <b>Email :</b> {userdata.email}
-          </h3>
-          <h3>
-            <b>Phone :</b> {userdata.phone}
-          </h3>
-        </div>
-        <button
-          className="absolute top-1 right-1 border p-2 rounded-lg flex gap-2 justify-center items-center bg-rose-300 hover:bg-rose-400 text-lg"
-          onClick={() => navigate("/userDashboardEdit")}
-        >
-          {" "}
-          <CiEdit />
-          Edit
-        </button>
-      </div> */}
       <ProfileEditModal
-       isOpen={isEditModelOpen}
-      onClose={()=>{
-      setIsEditModelOpen(false);
-      }
-      }
-      oldData={userdata}/>
-      
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false);
+        }}
+        oldData={userdata}
+      />
+
+      <AccountDeactivateModal
+        isOpen={isDeactivateModalOpen}
+        onClose={() => {
+          setIsDeactivateModalOpen(false);
+        }}
+      />
     </>
   );
 };
