@@ -5,31 +5,33 @@ import { useNavigate } from "react-router-dom";
 import { MdModeEditOutline } from "react-icons/md";
 import ProfileEditModal from "./profileEditModal";
 import AccountDeactivateModal from "./AccountDeactiveModel";
+import {useAuth} from"../../context/authContext";
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const [userdata, setUserData] = useState("");
+  // const navigate = useNavigate();
+  const {user}=useAuth();
+  // const [userdata, setUserData] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeactivateModalOpen, setIsDeactivateModalOpen] = useState(false);
 
 
-  const fetchUserData = async () => {
-    try {
-      const res = await api.get("/user/profile");
-      setUserData(res.data.data);
-      toast.success(res.data.message);
-    } catch (error) {
-      toast.error(
-        `Error : ${error.response?.status || error.message} | ${
-          error.response?.data.message || ""
-        }`
-      );
-    }
-  };
+  // const fetchUserData = async () => {
+  //   try {
+  //     const res = await api.get("/user/profile");
+  //     setUserData(res.data.data);
+  //     toast.success(res.data.message);
+  //   } catch (error) {
+  //     toast.error(
+  //       `Error : ${error.response?.status || error.message} | ${
+  //         error.response?.data.message || ""
+  //       }`
+  //     );
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchUserData();
-  },[isEditModalOpen]);
+  // useEffect(() => {
+  //   fetchUserData();
+  // },[isEditModalOpen]);
 
   return (
     <>
@@ -47,19 +49,19 @@ const Profile = () => {
         <div className=" flex-col gap-6 border border-gray-50 w-2/7 rounded-xl bg-cyan-100 p-2  ">
           <div className="border-2  w-40 h-40 mt-6 rounded-full overflow-hidden m-auto ">
             <img
-              src={userdata.photo}
+              src={user.photo}
               alt="profilePic"
               className="w-full h-full object-fit-cover rounded-full"
             />
           </div>
           <div className="mt-6">
-            <b> Name:</b> <span>{userdata.fullName}</span>
+            <b> Name:</b> <span>{user.fullName}</span>
           </div>
           <div>
-            <b>Email:</b> <span>{userdata.email}</span>
+            <b>Email:</b> <span>{user.email}</span>
           </div>
           <div>
-            <b>Phone:</b> <span>{userdata.phone}</span>
+            <b>Phone:</b> <span>{user.phone}</span>
           </div>
         </div>
 
@@ -69,31 +71,31 @@ const Profile = () => {
           </h2>
           <div className="text-gray-700">
             <b className="text-purple-700">Gender:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.gender}</span>
+            <span className="text-gray-800 ml-2">{user.gender}</span>
           </div>
           <div className="text-gray-700">
             <b className="text-purple-700">Occupation:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.occupation}</span>
+            <span className="text-gray-800 ml-2">{user.occupation}</span>
           </div>
           <div className="text-gray-700">
             <b className="text-purple-700">Address:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.address}</span>
+            <span className="text-gray-800 ml-2">{user.address}</span>
           </div>
           <div className="text-gray-700">
             <b className="text-purple-700">City:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.city}</span>
+            <span className="text-gray-800 ml-2">{user.city}</span>
           </div>
           <div className="text-gray-700">
             <b className="text-purple-700">District:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.district}</span>
+            <span className="text-gray-800 ml-2">{user.district}</span>
           </div>
           <div className="text-gray-700">
             <b className="text-purple-700">State:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.state}</span>
+            <span className="text-gray-800 ml-2">{user.state}</span>
           </div>
           <div className="text-gray-700">
             <b className="text-purple-700">Representing:</b>{" "}
-            <span className="text-gray-800 ml-2">{userdata.representing}</span>
+            <span className="text-gray-800 ml-2">{user.representing}</span>
           </div>
         </div>
       </div>
@@ -111,7 +113,7 @@ const Profile = () => {
         onClose={() => {
           setIsEditModalOpen(false);
         }}
-        oldData={userdata}
+        oldData={user}
       />
 
       <AccountDeactivateModal

@@ -5,7 +5,7 @@ import cont from "../assets/cont.jpg";
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
-const Contact = () => {
+const ContactUS = () => {
   const [contactData, setContactData] = useState({
     name: "",
     lastname: "",
@@ -154,4 +154,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactUS;

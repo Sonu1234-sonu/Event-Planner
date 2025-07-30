@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosCloseCircle, IoIosSave } from "react-icons/io";
 import { FaCamera } from "react-icons/fa";
 import api from "../../config/api";
-import {toast} from 'react-hot-toast';
+import {toast} from 'react-hot-toast'
 
 const indianStates = [
   "Andhra Pradesh",
@@ -89,7 +89,7 @@ const ProfileEditModal = ({ isOpen, onClose, oldData }) => {
       });
       toast.success(res.data.message);
       setUserData(res.data.data);
-     onClose();
+      onClose();
     } catch (error) {
       toast.error(
         `Error : ${error.response?.status || error.message} | ${
@@ -102,7 +102,7 @@ const ProfileEditModal = ({ isOpen, onClose, oldData }) => {
   };
 
   useEffect(() => {
-     if (oldData) {
+    if (oldData) {
       setUserData(oldData);
     }
   }, [isOpen, oldData]);
@@ -143,30 +143,21 @@ const ProfileEditModal = ({ isOpen, onClose, oldData }) => {
               </div>
             </div>
             <div className="grid gap-3 p-5  w-full grid-cols-[30%_70%] justify-items-center items-center">
+              <span className="font-bold text-md">Email : </span>
+              <input
+                type="text"
+                name="fullname"
+                value={userdata.email}
+                onChange={handelChange}
+                className="p-2 w-full"
+                disabled
+              />
+
               <span className="font-bold text-md">Name : </span>
               <input
                 type="text"
                 name="fullname"
                 value={userdata.fullName}
-                onChange={handelChange}
-                className="p-2 border rounded-lg border-rose-300 w-full"
-                disabled
-              />
-              <span className="font-bold text-md">Occupation: </span>
-              <input
-                type="text"
-                name="occupation"
-                value={userdata.occupation}
-                onChange={handelChange}
-                className="p-2 border rounded-lg border-rose-300 w-full"
-                disabled
-              />
-
-              <span className="font-bold text-md">Eamil : </span>
-              <input
-                type="text"
-                name="fullname"
-                value={userdata.email}
                 onChange={handelChange}
                 className="p-2 border rounded-lg border-rose-300 w-full"
               />
@@ -178,7 +169,7 @@ const ProfileEditModal = ({ isOpen, onClose, oldData }) => {
                 onChange={handelChange}
                 className="p-2 border rounded-lg border-rose-300 w-full"
               />
-               <span className="font-bold text-md">Gender : </span>
+              <span className="font-bold text-md">Gender : </span>
 
               <select
                 name="gender"
