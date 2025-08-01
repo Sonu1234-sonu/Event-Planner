@@ -1,38 +1,53 @@
 import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
 import cont from "../assets/cont.jpg";
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
-import { FaUserAlt } from "react-icons/fa";
-const ContactUS = () => {
+import { FaUserAlt, FaPaperPlane } from "react-icons/fa";
+import toast from "react-hot-toast";
+import api from "../config/api";
+const ContactUs = () => {
   const [contactData, setContactData] = useState({
     name: "",
-    lastname: "",
     email: "",
-    phone: "",
+    subject: "",
     message: "",
+    phone: "",
   });
 
-  const handelChange = (e) => {
-    const { name, value } = e.target;
+  const [loading, setLoading] = useState(false);
 
-    setContactData((previousData) => ({ ...previousData, [name]: value }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setContactData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handelSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(contactData);
-
-    setContactData({
-      name: "",
-      lastname: "",
-
-      email: "",
-      phone: "",
-      message: "",
-    });
+    setLoading(true);
+    try {
+      const res = await api.post("/public/contactus", contactData);
+      toast.success(res.data.message);
+      setContactData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        phone: "",
+      });
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -45,7 +60,7 @@ const ContactUS = () => {
               Contact Us
             </h1>
 
-            <form className="space-y-2 " onSubmit={handelSubmit}>
+            <form className="space-y-2 " onSubmit={handleSubmit}>
               <div className="flex gap-3.5 ">
                 <div>
                   <div className="flex gap-0.5 justify-items-center items-center">
@@ -55,7 +70,7 @@ const ContactUS = () => {
                     <div>
                       <label className="block mb-1 font-medium">
                         {" "}
-                        First Name
+                        Full Name
                       </label>
                     </div>
                   </div>
@@ -64,22 +79,22 @@ const ContactUS = () => {
                     type="text"
                     name="name"
                     value={contactData.name}
-                    onChange={handelChange}
+                    onChange={handleChange}
                     required
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
-                    placeholder="Enter your First name"
+                    placeholder="Enter your Full name"
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium">Last Name</label>
+                  <label className="block mb-1 font-medium">Subject</label>
                   <input
                     type="text"
-                    name="lastname"
-                    value={contactData.lastname}
-                    onChange={handelChange}
+                    name="subject"
+                    value={contactData.subject}
+                    onChange={handleChange}
                     required
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
-                    placeholder="Enter your Last name"
+                    placeholder="Enter your Subject"
                   />
                 </div>
               </div>
@@ -98,7 +113,7 @@ const ContactUS = () => {
                   type="email"
                   name="email"
                   value={contactData.email}
-                  onChange={handelChange}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder=" Enter your email"
@@ -106,16 +121,19 @@ const ContactUS = () => {
               </div>
               <div>
                 <div className="flex gap-0.5 justify-items-center items-center">
-                  <div><FaPhone /></div>
-                  <div><label className="block mb-1 font-medium">Number</label></div>
+                  <div>
+                    <FaPhone />
+                  </div>
+                  <div>
+                    <label className="block mb-1 font-medium">Number</label>
+                  </div>
                 </div>
-                
-                
+
                 <input
                   type="tel"
                   name="phone"
                   value={contactData.phone}
-                  onChange={handelChange}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder="Enter your Number"
@@ -124,15 +142,20 @@ const ContactUS = () => {
 
               <div>
                 <div className="flex gap-0.5 justify-items-center items-center">
-                  <div> <MdEmail  className="h-5 w-5"/></div>
-                  <div> <label className="block mb-1 font-medium">Message</label></div>
+                  <div>
+                    {" "}
+                    <MdEmail className="h-5 w-5" />
+                  </div>
+                  <div>
+                    {" "}
+                    <label className="block mb-1 font-medium">Message</label>
+                  </div>
                 </div>
-               
-               
+
                 <textarea
                   name="message"
                   value={contactData.message}
-                  onChange={handelChange}
+                  onChange={handleChange}
                   required
                   rows="4"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
@@ -142,9 +165,21 @@ const ContactUS = () => {
 
               <button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-600 transition duration-300"
               >
-                Send Message
+                {" "}
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaPaperPlane />
+                    <span>Send Message</span>
+                  </>
+                )}
               </button>
             </form>
           </div>
@@ -154,4 +189,4 @@ const ContactUS = () => {
   );
 };
 
-export default ContactUS;
+export default ContactUs;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import api from "../../config/api";
-import { useNavigate } from "react-router-dom";
+
 import { MdModeEditOutline } from "react-icons/md";
-import ProfileEditModal from "./profileEditModal";
+import ProfileEditModal from "./ProfileEditModal";
 import AccountDeactivateModal from "./AccountDeactiveModel";
-import {useAuth} from"../../context/authContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Profile = () => {
   // const navigate = useNavigate();

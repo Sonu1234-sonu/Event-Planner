@@ -2,6 +2,8 @@ import User from "../models/userModel.js"
 import bcrypt from "bcrypt"
 import genToken from "../utils/auth.js";
 import Deactivation from "../models/deactivationModel.js"
+import cloudinary from "../config/cloudinary.js";
+import sendEmail from"../utils/sedEmail.js";
 export const RegisterUser = async (req, res, next) => {
     try {
 
@@ -151,27 +153,58 @@ export const UpdateUser = async (req, res, next) => {
 };
 
 export const deleteUser = async (req, res, next) => {
+ 
   try {
     const currentUser = req.user;
     const { reason, feedback, confirmPassword } = req.body;
 
-    console.log(currentUser);
-
-    console.log(reason, feedback, confirmPassword , currentUser.password);
-    
     if (!currentUser) {
       const error = new Error("User Not Found !! Login Again");
       error.statusCode = 401;
       return next(error);
     }
 
-     const isVerified = await bcrypt.compare(confirmPassword, currentUser.password);
+    const isVerified = await bcrypt.compare(
+      confirmPassword,
+      currentUser.password
+    );
 
     if (!isVerified) {
       const error = new Error("Invalid Username or Password");
       error.statusCode = 401;
       return next(error);
     }
+
+    const mailBody = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Account Deactivation Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 0;">
+  <div style="background-color: #ffffff; max-width: 600px; margin: 40px auto; padding: 30px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
+    
+    <h2 style="color: #333333; margin-top: 0;">Account Deactivation Confirmed</h2>
+
+    <p style="color: #555555; line-height: 1.6;">Dear ${
+      currentUser.fullName
+    },</p>
+
+    <p style="color: #555555; line-height: 1.6;">We're confirming that your account has been deactivated as per your request.</p>
+
+    <p style="color: #555555; line-height: 1.6;">If this was a mistake or you'd like to return, you can reactivate your account anytime within the next 30 days by logging in again.</p>
+
+    <p style="color: #555555; line-height: 1.6;">If you have any questions or need assistance, feel free to contact our support team.</p>
+
+    <p style="color: #555555; line-height: 1.6;">Thank you,<br>The Festive Flair Team</p>
+
+    <div style="font-size: 12px; color: #999999; text-align: center; margin-top: 30px;">
+      © ${new Date().getFullYear()} . All rights reserved.
+    </div>
+    
+  </div>
+</body>
+</html>`;
 
     const updatedUser = await User.findByIdAndUpdate(
       currentUser._id,
@@ -185,16 +218,18 @@ export const deleteUser = async (req, res, next) => {
         representing: "N/A",
         photo: "N/A",
         role: "N/A",
-        password:"N/A",
+        password: "N/A",
         status: "Inactive",
       },
       { new: true }
     );
+
+    await sendEmail(currentUser.email, currentUser.subject, mailBody);
 
     await Deactivation.create({ userId: currentUser._id, reason, feedback });
 
     res.status(200).json({ message: "Sorry to see you go . . ." });
   } catch (error) {
     next(error);
-  }
+  }
 };
