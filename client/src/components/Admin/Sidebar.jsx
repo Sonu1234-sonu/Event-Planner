@@ -8,6 +8,8 @@ import {
   FaCommentDots,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { FaTent } from "react-icons/fa6";
+import { GiCook } from "react-icons/gi";
 import api from "../../config/api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -44,6 +46,25 @@ const Sidebar = ({ active, setActive }) => {
                 onClick={() => setActive("overview")}
               >
                 <FaTachometerAlt className="text-xl" /> Overview
+              </li>
+
+               <li
+                className={`flex items-center gap-3 border border-gray-200 p-4 rounded-xl text-lg font-medium cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white hover:shadow-md hover: ${
+                  active === "banquetHall" &&
+                  "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md "
+                }`}
+                onClick={() => setActive("banquetHall")}
+              >
+                <FaTent className="text-xl" /> Banquet Hall
+              </li>
+              <li
+                className={`flex items-center gap-3 border border-gray-200 p-4 rounded-xl text-lg font-medium cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white hover:shadow-md hover: ${
+                  active === "cateringService" &&
+                  "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md "
+                }`}
+                onClick={() => setActive("cateringService")}
+              >
+                <GiCook className="text-xl" /> Catering Service
               </li>
               <li
                 className={`flex items-center gap-3 border border-gray-200 p-4 rounded-xl text-lg font-medium cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white hover:shadow-md hover:scale-105 ${

@@ -1,6 +1,7 @@
 import { response } from "express";
 import Contact from "../models/contactModel.js";
 import sendEmail from "../utils/sedEmail.js";
+import BanquetHall from "../models/BanquetModel.js";
 
 
 export const GetAllContacts = async (req, res, next) => {
@@ -76,7 +77,72 @@ export const UpdateContacts = async (req, res, next) => {
        await sendEmail(updatedQuery.email, updatedQuery.subject, mailBody);
 
     res.status(200).json({ message: "Contact Updated", data: updatedQuery });
+
+   
+    
   } catch (error) {
     next(error);
   }
 };
+
+export const addBanquetHall = async (req, res, next) => {
+      try {
+        const { name, location, capacity, amenities, price } = req.body;
+        const newHall = new BanquetHall({
+          name,
+          location,
+          capacity,
+          amenities,
+          price,
+        });
+        await newHall.save();
+        res.status(201).json({ message: "Banquet Hall Added", data: newHall });
+      } catch (error) {
+        next(error);
+      }
+    };
+
+    /**
+     * Delete a Banquet Hall by ID
+     */
+    export const deleteBanquetHall = async (req, res, next) => {
+      try {
+        const hallId = req.params.id;
+        const deletedHall = await BanquetHall.findByIdAndDelete(hallId);
+        if (!deletedHall) {
+          return res.status(404).json({ message: "Banquet Hall not found" });
+        }
+        res.status(200).json({ message: "Banquet Hall Deleted", data: deletedHall });
+      } catch (error) {
+        next(error);
+      }
+    };
+
+    /**
+     * Edit a Banquet Hall by ID
+     */
+    export const editBanquetHall = async (req, res, next) => {
+      try {
+        const hallId = req.params.id;
+        const updates = req.body;
+        const updatedHall = await BanquetHall.findByIdAndUpdate(hallId, updates, { new: true });
+        if (!updatedHall) {
+          return res.status(404).json({ message: "Banquet Hall not found" });
+        }
+        res.status(200).json({ message: "Banquet Hall Updated", data: updatedHall });
+      } catch (error) {
+        next(error);
+      }
+    };
+
+    /**
+     * View all Banquet Halls
+     */
+    export const viewBanquetHalls = async (req, res, next) => {
+      try {
+        const halls = await BanquetHall.find();
+        res.status(200).json({ message: "All Banquet Halls Fetched", data: halls });
+      } catch (error) {
+        next(error);
+      }
+    };
