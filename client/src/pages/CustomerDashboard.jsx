@@ -1,11 +1,11 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Customer/Sidebar";
 import Overview from "../components/Customer/Overview";
 import Profile from "../components/Customer/Profile";
 import Bookings from "../components/Customer/Bookings";
 import Support from "../components/Customer/Support";
 import Feedback from "../components/Customer/Feedback";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
@@ -25,8 +25,8 @@ const CustomerDashboard = () => {
         <Sidebar active={active} setActive={setActive} />
         <div className="border w-full">
           {active === "overview" && <Overview />}
-          {active === "profile" && <Profile/>}
-          {active === "bookings" && <Bookings/>}
+          {active === "profile" && <Profile />}
+          {active === "bookings" && <Bookings />}
           {active === "support" && <Support />}
           {active === "feedback" && <Feedback />}
         </div>
