@@ -5,7 +5,7 @@ import api from "../../config/api";
 import { MdModeEditOutline } from "react-icons/md";
 import ProfileEditModal from "./ProfileEditModal";
 import AccountDeactivateModal from "./AccountDeactiveModel";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/authContext";
 
 const Profile = () => {
   // const navigate = useNavigate();

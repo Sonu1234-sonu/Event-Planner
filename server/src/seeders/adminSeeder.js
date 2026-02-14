@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
- 
+
 
 
 import connectDB from "../config/db.js";
@@ -10,14 +10,14 @@ import bcrypt from "bcrypt";
 
 const seedAdmin = async () => {
   await connectDB();
-  
+
 
   const adminPassword = await bcrypt.hash("Admin@123", 10);
   const AdminUser = {
     fullName: "Admin User",
-    email: "Sonulovewanshi999@gmail.com",
-    password: adminPassword,
-    phone: "9993198366",
+    email: "Admin123@gmail.com",
+    password: 123456,
+    phone: "99931238364",
     photo: "https://placehold.co/600x400?text=A",
     gender: "Male",
     representing: "N/A",
@@ -31,8 +31,8 @@ const seedAdmin = async () => {
   };
 
   const existingAdmin = await User.findOne({ role: "Admin" });
-   console.log(existingAdmin);
-   
+  console.log(existingAdmin);
+
   let admin;
   if (existingAdmin) {
     admin = await User.findByIdAndUpdate(existingAdmin._id, AdminUser, {

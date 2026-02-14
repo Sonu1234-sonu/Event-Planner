@@ -31,6 +31,12 @@ export const Protect = async (req, res, next) => {
 
 export const isAdmin = async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error("Unauthorized !! Login Required");
+      error.statusCode = 401;
+      return next(error);
+    }
+    
     if (req.user.role !== "Admin") {
       const error = new Error("Unauthorized !! Admin Permission Required");
       error.statusCode = 401;
@@ -41,3 +47,5 @@ export const isAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const isAuthenticated = Protect;

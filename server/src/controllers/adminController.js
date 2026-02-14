@@ -87,16 +87,28 @@ export const UpdateContacts = async (req, res, next) => {
 
 export const addBanquetHall = async (req, res, next) => {
       try {
-        const { name, location, capacity, amenities, price } = req.body;
-        const newHall = new BanquetHall({
-          name,
-          location,
+        const { hallName, address, capacity, managerName, contactNumber, email, rent, minBookingAmount, featureDescription, photos } = req.body;
+        
+        if (!hallName || !address || !capacity || !managerName || !contactNumber || !email || !rent || !minBookingAmount || !featureDescription) {
+          const error = new Error("All required fields must be provided");
+          error.statusCode = 400;
+          return next(error);
+        }
+
+        const newHall = await BanquetHall.create({
+          hallName,
+          address,
           capacity,
-          amenities,
-          price,
+          managerName,
+          contactNumber,
+          email,
+          rent,
+          minBookingAmount,
+          featureDescription,
+          photos: photos || []
         });
-        await newHall.save();
-        res.status(201).json({ message: "Banquet Hall Added", data: newHall });
+        
+        res.status(201).json({ message: "Banquet Hall Added Successfully", data: newHall });
       } catch (error) {
         next(error);
       }

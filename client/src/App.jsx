@@ -5,6 +5,9 @@ import Hero from "./components/Hero";
 import Login from "./pages/Login";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
+import Services from "./pages/Services";
+import Stories from "./pages/Stories";
+import Gallery from "./pages/Gallery";
 
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
@@ -24,7 +27,10 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/" element={<Hero />} />
-             {/* <Route path="/about" element={<About />} /> */}
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/stories" element={<Stories />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<ContactUs />}/>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

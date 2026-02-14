@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import loginimg from "../assets/login.jpg";
-import { Link } from "react-router-dom";
-import api from "../config/api";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import loginimg from "../assets/login.jpg";
+import api from "../config/api";
 
 const Register = () => {
   const [registerData, setRegisterData] = useState({
@@ -60,7 +60,7 @@ const Register = () => {
                   placeholder="Username"
                   value={registerData.fullName}
                   onChange={handelChange}
-                  className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full py-2 pl-10 pr-4 text-white placeholder-gray-300 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
                 />
                 <span className="absolute left-3 top-2.5 text-white">
                   <i className="fas fa-user"></i>
@@ -71,7 +71,7 @@ const Register = () => {
                   type="email"
                   name="email"
                   placeholder="Enter your Email"
-                  className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full py-2 pl-10 pr-4 text-white placeholder-gray-300 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
                   value={registerData.email}
                   onChange={handelChange}
                 />
@@ -86,7 +86,7 @@ const Register = () => {
                   placeholder="Password"
                   value={registerData.password}
                   onChange={handelChange}
-                  className="w-full py-2 pl-10 pr-4  text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full py-2 pl-10 pr-4 text-white placeholder-gray-300 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
                 />
                 <span className="absolute left-3 top-2.5 text-white">
                   <i className="fas fa-lock"></i>
@@ -99,7 +99,7 @@ const Register = () => {
                   placeholder="Phone Number "
                   value={registerData.phone}
                   onChange={handelChange}
-                  className="w-full py-2 pl-10 pr-4 text-red-400 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full py-2 pl-10 pr-4 text-white placeholder-gray-300 bg-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300"
                 />
                 <span className="absolute left-3 top-2.5 text-white">
                   <i className="fas fa-lock"></i>
@@ -112,10 +112,9 @@ const Register = () => {
             </button>
             <p className="text-center text-sm mt-4">
               Already have account :
-              <a href="#" className="underline">
-                {" "}
-                <Link to={"/login"}>Login</Link>
-              </a>
+              <Link to={"/login"} className="underline ml-1">
+                Login
+              </Link>
             </p>
           </form>
         </div>
